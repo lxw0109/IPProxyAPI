@@ -10,6 +10,7 @@ import redis
 from redis_IP_proxy.error import PoolEmptyError
 from redis_IP_proxy.settings import HOST, PORT
 from redis_IP_proxy.utils import check_proxy_alive
+from redis_IP_proxy.utils import generate_logger
 
 
 class RedisClient():
@@ -22,6 +23,7 @@ class RedisClient():
     def __init__(self, host=HOST, port=PORT):
         pool = redis.ConnectionPool(host=host, port=port, db=0)
         self._db = redis.Redis(connection_pool=pool)
+        self.logger = generate_logger("RedisClient")
 
     def get(self, count=1):
         """
@@ -46,13 +48,13 @@ class RedisClient():
                 proxy = self._db.lindex("proxy_list", index).decode("utf-8")
                 proxies.append(proxy)
         except ValueError as ve:
-            print("queue_len is too short(<1)", ve)
+            self.logger.error("ValueError:queue_len is too short(<1).\n{0}".format(ve))
         except Exception as e:
-            print("lxw:Unexpected Error", e)
+            self.logger.error("lxw:Unexpected Error.\n{0}".format(e))
         finally:
-            print("Using proxies:", proxies)
+            # self.logger.info("Using proxies:{0}".format(proxies))
             if len(proxies) < count:
-               print("The requested count is larger than what we have in Redis, more proxies are needed.")
+               self.logger.warning("The requested count is larger than what we have in Redis, more proxies are needed.")
             return proxies
 
     def clean_proxies(self):
@@ -64,7 +66,7 @@ class RedisClient():
             if not isinstance(proxy, str):
                 proxy = proxy.decode("utf-8")
             if not check_proxy_alive(proxy):
-                print("Remove useless proxy:{0} Current number of proxy available is:{1}".format(proxy, self.queue_len))
+                self.logger.info("Remove useless proxy:{0} Current number of proxy available is:{1}".format(proxy, self.queue_len))
                 self._db.lrem("proxy_list", proxy, 0)
 
     def put(self, proxy):
@@ -97,13 +99,15 @@ class RedisClient():
         """
         show all elements in the list.
         """
-        print(self._db.lrange("proxy_list", 0, -1))
+        #print(self._db.lrange("proxy_list", 0, -1))
+        self.logger.info(repr(self._db.lrange("proxy_list", 0, -1)))
 
     def flush(self):
         """
         flush db
         """
-        self._db.flushall()
+        # self._db.flushall()    # DO NOT DO THIS.
+        pass
 
 
 if __name__ == '__main__':
@@ -117,5 +121,5 @@ if __name__ == '__main__':
     print(client.pop())
     """
     client = RedisClient()
-    print(client.queue_len)
-    print(client.get(2))
+    client.logger.info(repr(client.queue_len))
+    client.logger.info(repr(client.get(2)))

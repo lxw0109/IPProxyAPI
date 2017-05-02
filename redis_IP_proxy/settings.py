@@ -5,8 +5,10 @@
 # Date: 4/26/17 2:48 PM
 
 # Redis数据库的地址和端口
-HOST = "localhost"
-PORT = 6379
+# HOST = "localhost"
+# PORT = 6379
+HOST = "101.201.102.233"
+PORT = 63679
 
 # 测试API，用百度来测试
 # TEST_API = "https://www.baidu.com/"

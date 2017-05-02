@@ -4,11 +4,13 @@
 # Author: lxw
 # Date: 4/26/17 2:56 PM
 
-import redis
 import scrapy
 
-from redis_IP_proxy.proxy_interface import RedisClient
-from redis_IP_proxy.utils import check_proxy_alive
+from proxy_interface import RedisClient
+from utils import check_proxy_alive
+
+# from redis_IP_proxy.proxy_interface import RedisClient    # NO
+# from redis_IP_proxy.utils import check_proxy_alive
 
 
 class Daili66Spider(scrapy.Spider):
@@ -42,7 +44,7 @@ class Daili66Spider(scrapy.Spider):
                 Daili66Spider.proxy_db.put(proxy)
                 print(proxy)
 
-        if Daili66Spider.proxy_db.queue_len > 50:
+        if Daili66Spider.proxy_db.queue_len > 20:
             return
 
         next_page = response.css("#PageList .pageCurrent").xpath("following-sibling::a").css("::attr(href)").extract_first()

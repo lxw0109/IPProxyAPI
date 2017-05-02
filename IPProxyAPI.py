@@ -11,10 +11,10 @@ from redis_IP_proxy.proxy_interface import RedisClient
 
 app = Flask(__name__)
 
+client = RedisClient()
 
 @app.route("/")
-def getIPProxy():
-    client = RedisClient()
+def get_ip_proxy():
     proxy_list = client.get()
     if proxy_list:
         return proxy_list[0]
