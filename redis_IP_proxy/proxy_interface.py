@@ -39,7 +39,7 @@ class RedisClient():
         try:
             # When providing users with proxies, we must make sure these proxies are all usable.
             # However, it is much too slow for get(), because clean_proxies() needs to check all proxies in Redis.
-            self.clean_proxies()
+            #self.clean_proxies()
 
             for index in range(count):
                 index = random.randint(0, self.queue_len-1)
