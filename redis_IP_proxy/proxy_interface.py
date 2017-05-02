@@ -102,6 +102,13 @@ class RedisClient():
         #print(self._db.lrange("proxy_list", 0, -1))
         self.logger.info(repr(self._db.lrange("proxy_list", 0, -1)))
 
+    def del_all_proxies(self):
+        """
+        delete all the proxies in proxy_list
+        """
+        self._db.delete("proxy_list")
+
+
     def flush(self):
         """
         flush db

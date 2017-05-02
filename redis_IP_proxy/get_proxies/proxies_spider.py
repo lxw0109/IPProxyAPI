@@ -16,7 +16,8 @@ sys.path = ['/home/lxw/IT/projects/IPProxyAPI/redis_IP_proxy/get_proxies', '/hom
 from proxy_interface import RedisClient
 
 proxy_db = RedisClient()
-proxy_db.clean_proxies()
+# proxy_db.clean_proxies()
+proxy_db.del_all_proxies()
 
 cmdline.execute("scrapy crawl daili66_spider -L WARNING".split())
 # cmdline.execute("scrapy crawl next_page_spider -L WARNING".split())
