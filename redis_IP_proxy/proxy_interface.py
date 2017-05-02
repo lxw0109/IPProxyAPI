@@ -52,7 +52,7 @@ class RedisClient():
         finally:
             print("Using proxies:", proxies)
             if len(proxies) < count:
-                print("The requested count is larger than what we have in Redis, more proxies are needed.")
+               print("The requested count is larger than what we have in Redis, more proxies are needed.")
             return proxies
 
     def clean_proxies(self):

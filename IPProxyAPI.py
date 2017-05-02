@@ -5,11 +5,22 @@
 # Date: 5/2/17 3:05 PM
 
 from flask import Flask
+
+from redis_IP_proxy.proxy_interface import RedisClient
+
+
 app = Flask(__name__)
+
 
 @app.route("/")
 def getIPProxy():
-    return "192.168.1.41"
+    client = RedisClient()
+    proxy_list = client.get()
+    if proxy_list:
+        return proxy_list[0]
+    else:
+        return "No IP proxy available"
+
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8080)
+    app.run(host="0.0.0.0", port=60001)
