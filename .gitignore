@@ -3,4 +3,4 @@
 **/__pycache__
 nohup.out
 **/*.log
-py3flask/
+py3flask
