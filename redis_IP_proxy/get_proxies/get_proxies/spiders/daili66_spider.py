@@ -6,8 +6,8 @@
 
 import scrapy
 
-from proxy_interface import RedisClient
-from utils import check_proxy_alive
+from redis_IP_proxy.proxy_interface import RedisClient
+from redis_IP_proxy.utils import check_proxy_alive
 
 # from redis_IP_proxy.proxy_interface import RedisClient    # NO
 # from redis_IP_proxy.utils import check_proxy_alive

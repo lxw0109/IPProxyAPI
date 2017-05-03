@@ -6,14 +6,12 @@
 
 import sys
 from scrapy import cmdline
-
-"""
-sys.path.append("/home/lxw/IT/projects/IPProxyAPI/redis_IP_proxy")
+sys.path.append("/home/lxw/IT/projects/IPProxyAPI")
+sys.path.append("/home/lxw/IT/projects/IPProxyAPI/redis_IP_proxy/get_proxies")
 print(sys.path)
-"""
-sys.path = ['/home/lxw/IT/projects/IPProxyAPI/redis_IP_proxy/get_proxies', '/home/lxw/IT/projects/IPProxyAPI', '/home/lxw/IT/program/LXW_VIRTUALENV/py361scrapy133/lib/python36.zip', '/home/lxw/IT/program/LXW_VIRTUALENV/py361scrapy133/lib/python3.6', '/home/lxw/IT/program/LXW_VIRTUALENV/py361scrapy133/lib/python3.6/lib-dynload', '/usr/local/lib/python3.6', '/home/lxw/IT/program/LXW_VIRTUALENV/py361scrapy133/lib/python3.6/site-packages', '/home/lxw/.local/lib/python3.6/site-packages', '/usr/local/lib/python3.6/site-packages', '/home/lxw/IT/projects/IPProxyAPI/redis_IP_proxy']
+# from IPProxyAPI.redis_IP_proxy.proxy_interface import RedisClient  # NO
+from redis_IP_proxy.proxy_interface import RedisClient
 
-from proxy_interface import RedisClient
 
 proxy_db = RedisClient()
 # proxy_db.clean_proxies()
