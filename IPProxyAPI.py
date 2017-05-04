@@ -13,13 +13,19 @@ app = Flask(__name__)
 
 client = RedisClient()
 
-@app.route("/")
-def get_ip_proxy():
+
+@app.route("/plain")
+def get_ip_proxy_plain():
     proxy_list = client.get()
     if proxy_list:
         return proxy_list[0]
     else:
         return "No IP proxy available"
+
+
+@app.route("/")
+def get_ip_proxy():
+    return '<div style="text-align: center; "><h1>Your proxy is&nbsp;&nbsp;{}</h1></div>'.format(get_ip_proxy_plain())
 
 
 if __name__ == "__main__":
