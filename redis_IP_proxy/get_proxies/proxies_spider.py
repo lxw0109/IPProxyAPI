@@ -8,7 +8,7 @@ import sys
 from scrapy import cmdline
 sys.path.append("/home/lxw/IT/projects/IPProxyAPI")
 sys.path.append("/home/lxw/IT/projects/IPProxyAPI/redis_IP_proxy/get_proxies")
-print(sys.path)
+# print(sys.path)
 # from IPProxyAPI.redis_IP_proxy.proxy_interface import RedisClient  # NO
 from redis_IP_proxy.proxy_interface import RedisClient
 
